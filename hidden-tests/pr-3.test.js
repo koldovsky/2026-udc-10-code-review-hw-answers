@@ -16,3 +16,8 @@ test("PR-3 D2: a name with a comma stays one CSV field", () => {
   assert.match(row, /"Приклад, Оля"/);
 });
 
+test("PR-3 D3 (team rule 2): exporting contacts records one access per member", () => {
+  const db = createDb();
+  exportMembersCsv(db, { id: 4, role: "admin" });
+  assert.equal(db.accessLog.length, db.members.length);
+});
